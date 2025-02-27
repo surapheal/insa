@@ -1,0 +1,48 @@
+import React from 'react';
+import { View, StyleSheet, Text, TouchableOpacity, ScrollView, Linking } from 'react-native';
+
+const ScanResultScreen = ({ route }) => {
+  const { scannedData } = route.params;
+
+  return (
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.title}>Scanned Links</Text>
+
+      {Object.entries(scannedData).map(([key, url]) => (
+        <TouchableOpacity key={key} style={styles.linkButton} onPress={() => Linking.openURL(url)}>
+          <Text style={styles.linkText}>{key.charAt(0).toUpperCase() + key.slice(1)}</Text>
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+    backgroundColor: '#f4f4f4',
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  linkButton: {
+    backgroundColor: '#007bff',
+    padding: 12,
+    borderRadius: 8,
+    marginVertical: 8,
+    width: '90%',
+    alignItems: 'center',
+  },
+  linkText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
+
+export default ScanResultScreen;
