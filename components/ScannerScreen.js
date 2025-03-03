@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, Animated, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Animated, TouchableOpacity, Image } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import * as ImagePicker from 'expo-image-picker';
 import * as Linking from 'expo-linking';
+import jsQR from 'jsqr';
 
 const ScannerScreen = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const scanAnimation = useState(new Animated.Value(0))[0]; // Animation State
+  const [selectedImage, setSelectedImage] = useState(null);
+  const scanAnimation = useState(new Animated.Value(0))[0];
 
   useEffect(() => {
-    const requestCameraPermission = async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
+    const requestPermissions = async () => {
+      const { status: cameraStatus } = await BarCodeScanner.requestPermissionsAsync();
+      const { status: galleryStatus } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      setHasPermission(cameraStatus === 'granted' && galleryStatus === 'granted');
     };
-
-    requestCameraPermission();
+    requestPermissions();
   }, []);
 
-  // Start scan animation
   useEffect(() => {
     Animated.loop(
       Animated.sequence([
@@ -36,10 +38,51 @@ const ScannerScreen = ({ navigation }) => {
     }
   };
 
+  const pickImage = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: false,
+        quality: 1,
+      });
+
+      if (!result.canceled) {
+        setSelectedImage(result.assets[0].uri);
+        decodeQRCode(result.assets[0].uri);
+      }
+    } catch (error) {
+      alert('Error picking an image.');
+      console.error(error);
+    }
+  };
+
+  const decodeQRCode = async (imageUri) => {
+    try {
+      const response = await fetch(imageUri);
+      const blob = await response.blob();
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const imgData = new Uint8ClampedArray(reader.result);
+        const qrCode = jsQR(imgData, 400, 400);
+        if (qrCode) {
+          alert(`QR Code from Image: ${qrCode.data}`);
+        } else {
+          alert('No QR code found in the image.');
+        }
+      };
+
+      reader.readAsArrayBuffer(blob);
+    } catch (error) {
+      console.error('Error decoding QR code:', error);
+      alert('Failed to process QR code.');
+    }
+  };
+
   if (hasPermission === null) {
     return (
       <View style={styles.centered}>
-        <Text>Requesting camera permission...</Text>
+        <Text>Requesting permissions...</Text>
       </View>
     );
   }
@@ -47,7 +90,7 @@ const ScannerScreen = ({ navigation }) => {
   if (hasPermission === false) {
     return (
       <View style={styles.centered}>
-        <Text>No access to camera</Text>
+        <Text>No access to camera or gallery</Text>
       </View>
     );
   }
@@ -59,24 +102,29 @@ const ScannerScreen = ({ navigation }) => {
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
           style={StyleSheet.absoluteFillObject}
         />
-        {/* Scanning Animation */}
-        <Animated.View style={[styles.scanLine, { top: scanAnimation.interpolate({
-          inputRange: [0, 1],
-          outputRange: ['10%', '90%'],
-        })}]} />
+        <Animated.View style={[styles.scanLine, {
+          top: scanAnimation.interpolate({ inputRange: [0, 1], outputRange: ['10%', '90%'] })
+        }]} />
         <Text style={styles.scanText}>Align the QR Code inside the frame</Text>
       </View>
 
-      {scanned && (
+      {selectedImage && (
+        <Image source={{ uri: selectedImage }} style={styles.previewImage} />
+      )}
+
+      <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.scanAgainButton} onPress={() => setScanned(false)}>
           <Text style={styles.scanAgainText}>Scan Again</Text>
         </TouchableOpacity>
-      )}
+
+        <TouchableOpacity style={styles.pickImageButton} onPress={pickImage}>
+          <Text style={styles.pickImageText}>Scan from Gallery</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
-// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -108,17 +156,39 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     opacity: 0.8,
   },
-  scanAgainButton: {
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: 20,
+  },
+  scanAgainButton: {
     backgroundColor: '#007bff',
     paddingVertical: 12,
     paddingHorizontal: 30,
     borderRadius: 10,
+    marginRight: 10,
   },
   scanAgainText: {
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  pickImageButton: {
+    backgroundColor: '#28a745',
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 10,
+  },
+  pickImageText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  previewImage: {
+    width: 200,
+    height: 200,
+    marginTop: 20,
+    borderRadius: 10,
   },
   centered: {
     flex: 1,
