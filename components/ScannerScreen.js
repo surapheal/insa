@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, Animated, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, Text, Animated, TouchableOpacity, Image, Alert } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
 import * as Linking from 'expo-linking';
 import jsQR from 'jsqr';
 
 const ScannerScreen = ({ navigation }) => {
-  const [hasPermission, setHasPermission] = useState(null);
+  const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const scanAnimation = useState(new Animated.Value(0))[0];
 
   useEffect(() => {
     const requestPermissions = async () => {
+      const { status: cameraStatus } = await Permissions.askAsync(Permissions.CAMERA);
       const { status: galleryStatus } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      setHasPermission(galleryStatus === 'granted');
+      setHasCameraPermission(cameraStatus === 'granted' && galleryStatus === 'granted');
     };
     requestPermissions();
   }, []);
@@ -31,9 +33,9 @@ const ScannerScreen = ({ navigation }) => {
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
     if (data.startsWith('http')) {
-      Linking.openURL(data).catch(() => alert('Invalid URL or unable to open the link.'));
+      Linking.openURL(data).catch(() => Alert.alert('Invalid URL or unable to open the link.'));
     } else {
-      alert(`Scanned Data: ${data}`);
+      Alert.alert('Scanned Data', data);
     }
   };
 
@@ -50,7 +52,7 @@ const ScannerScreen = ({ navigation }) => {
         decodeQRCode(result.assets[0].uri);
       }
     } catch (error) {
-      alert('Error picking an image.');
+      Alert.alert('Error picking an image.');
       console.error(error);
     }
   };
@@ -65,20 +67,20 @@ const ScannerScreen = ({ navigation }) => {
         const imgData = new Uint8ClampedArray(reader.result);
         const qrCode = jsQR(imgData, 400, 400);
         if (qrCode) {
-          alert(`QR Code from Image: ${qrCode.data}`);
+          Alert.alert('QR Code from Image', qrCode.data);
         } else {
-          alert('No QR code found in the image.');
+          Alert.alert('No QR code found in the image.');
         }
       };
 
       reader.readAsArrayBuffer(blob);
     } catch (error) {
       console.error('Error decoding QR code:', error);
-      alert('Failed to process QR code.');
+      Alert.alert('Failed to process QR code.');
     }
   };
 
-  if (hasPermission === null) {
+  if (hasCameraPermission === null) {
     return (
       <View style={styles.centered}>
         <Text>Requesting permissions...</Text>
@@ -86,10 +88,10 @@ const ScannerScreen = ({ navigation }) => {
     );
   }
 
-  if (hasPermission === false) {
+  if (hasCameraPermission === false) {
     return (
       <View style={styles.centered}>
-        <Text>No access to gallery</Text>
+        <Text>No access to camera or gallery</Text>
       </View>
     );
   }
@@ -101,6 +103,8 @@ const ScannerScreen = ({ navigation }) => {
           style={StyleSheet.absoluteFillObject}
           onBarCodeRead={scanned ? undefined : handleBarCodeScanned}
           captureAudio={false}
+          type={RNCamera.Constants.Type.back}
+          flashMode={RNCamera.Constants.FlashMode.off}
         />
         <Animated.View
           style={[
@@ -199,6 +203,7 @@ const styles = StyleSheet.create({
 });
 
 export default ScannerScreen;
+
 
 
 
