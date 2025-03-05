@@ -211,6 +211,8 @@ export default ScannerScreen;
 
 
 
+
+
 // import React, { useState, useEffect } from 'react';
 // import { View, StyleSheet, Text, Animated, TouchableOpacity, Image } from 'react-native';
 // import { BarCodeScanner } from 'expo-barcode-scanner';
