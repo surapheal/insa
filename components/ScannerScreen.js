@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, Animated, TouchableOpacity, Image, Alert } from 'react-native';
-import { RNCamera } from 'react-native-camera';
+import { Camera } from 'expo-camera'; // Import Expo's Camera
 import * as ImagePicker from 'expo-image-picker';
-import * as Camera from 'expo-camera';
 import * as Linking from 'expo-linking';
 import jsQR from 'jsqr';
 
@@ -10,14 +9,21 @@ const ScannerScreen = ({ navigation }) => {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [cameraType, setCameraType] = useState(Camera.Constants?.Type?.back || Camera.Constants.Type.back); // Safe initialization
   const scanAnimation = useState(new Animated.Value(0))[0];
 
   useEffect(() => {
     const requestPermissions = async () => {
-      const { status: cameraStatus } = await Camera.requestCameraPermissionsAsync();
-      const { status: galleryStatus } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      setHasCameraPermission(cameraStatus === 'granted' && galleryStatus === 'granted');
+      try {
+        const { status: cameraStatus } = await Camera.requestCameraPermissionsAsync(); // Request camera permissions
+        const { status: galleryStatus } = await ImagePicker.requestMediaLibraryPermissionsAsync(); // Request gallery permissions
+        setHasCameraPermission(cameraStatus === 'granted' && galleryStatus === 'granted');
+      } catch (error) {
+        console.error('Permission error:', error);
+        setHasCameraPermission(false); // Handle permission error
+      }
     };
+
     requestPermissions();
   }, []);
 
@@ -99,12 +105,10 @@ const ScannerScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.scannerContainer}>
-        <RNCamera
+        <Camera
           style={StyleSheet.absoluteFillObject}
-          onBarCodeRead={scanned ? undefined : handleBarCodeScanned}
-          captureAudio={false}
-          type={RNCamera.Constants.Type.back}
-          flashMode={RNCamera.Constants.FlashMode.off}
+          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+          type={cameraType} // Using the cameraType state
         />
         <Animated.View
           style={[
@@ -203,7 +207,6 @@ const styles = StyleSheet.create({
 });
 
 export default ScannerScreen;
-
 
 
 
