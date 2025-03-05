@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, Animated, TouchableOpacity, Image, Alert } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import * as ImagePicker from 'expo-image-picker';
-import * as Permissions from 'expo-permissions';
+import * as Camera from 'expo-camera';
 import * as Linking from 'expo-linking';
 import jsQR from 'jsqr';
 
@@ -14,7 +14,7 @@ const ScannerScreen = ({ navigation }) => {
 
   useEffect(() => {
     const requestPermissions = async () => {
-      const { status: cameraStatus } = await Permissions.askAsync(Permissions.CAMERA);
+      const { status: cameraStatus } = await Camera.requestCameraPermissionsAsync();
       const { status: galleryStatus } = await ImagePicker.requestMediaLibraryPermissionsAsync();
       setHasCameraPermission(cameraStatus === 'granted' && galleryStatus === 'granted');
     };
@@ -203,6 +203,7 @@ const styles = StyleSheet.create({
 });
 
 export default ScannerScreen;
+
 
 
 
