@@ -21,16 +21,34 @@
       padding: 30px;
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: left;
     }
     h1 {
       font-size: 28px;
       margin-bottom: 20px;
+      color: #333;
     }
-    .cookie-option {
-      margin-bottom: 15px;
+    .cookie-section {
+      margin-bottom: 20px;
     }
-    .cookie-option label {
-      margin-left: 10px;
+    .cookie-section h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #007bff;
+    }
+    .cookie-section p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.6;
+    }
+    .checkbox {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .checkbox input {
+      cursor: pointer;
     }
     .button-group {
       display: flex;
@@ -43,13 +61,7 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-    }
-    .confirm {
-      background-color: #007bff;
-      color: white;
-    }
-    .confirm:hover {
-      background-color: #0056b3;
+      transition: background-color 0.3s ease;
     }
     .reject {
       background-color: #dc3545;
@@ -58,62 +70,140 @@
     .reject:hover {
       background-color: #c82333;
     }
+    .confirm {
+      background-color: #007bff;
+      color: white;
+    }
+    .confirm:hover {
+      background-color: #0056b3;
+    }
+    .trust-message {
+      font-size: 12px;
+      color: #777;
+      margin-top: 20px;
+      text-align: center;
+    }
+    /* Collapsible styles */
+    .collapsible {
+      background-color: #f1f1f1;
+      color: #007bff;
+      cursor: pointer;
+      padding: 10px;
+      width: 100%;
+      text-align: left;
+      border: none;
+      outline: none;
+      font-size: 15px;
+    }
+    .active, .collapsible:hover {
+      background-color: #ccc;
+    }
+    .content {
+      padding: 0 18px;
+      display: none;
+      overflow: hidden;
+      background-color: #f9f9f9;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Cookie Preferences</h1>
+    <h1>Manage Your Cookie Preferences</h1>
 
-    <div class="cookie-option">
-      <input type="checkbox" id="performance" />
-      <label for="performance">Performance Cookies</label>
+    <div class="cookie-section">
+      <h2>Performance Cookies</h2>
+      <p>These cookies collect anonymous data on how you use our site to improve its performance.</p>
+      <button type="button" class="collapsible">Learn More</button>
+      <div class="content">
+        <p>Performance cookies help us to improve our website's functionality, allowing us to better understand how users interact with our content.</p>
+      </div>
+      <div class="checkbox">
+        <input type="checkbox" id="performance">
+        <label for="performance">Enable Performance Cookies</label>
+      </div>
     </div>
 
-    <div class="cookie-option">
-      <input type="checkbox" id="functional" />
-      <label for="functional">Functional Cookies</label>
+    <div class="cookie-section">
+      <h2>Functional Cookies</h2>
+      <p>Enable site functionalities like remembering your preferences.</p>
+      <button type="button" class="collapsible">Learn More</button>
+      <div class="content">
+        <p>Functional cookies enhance the user experience by remembering your preferences and settings, making your next visit smoother.</p>
+      </div>
+      <div class="checkbox">
+        <input type="checkbox" id="functional">
+        <label for="functional">Enable Functional Cookies</label>
+      </div>
     </div>
 
-    <div class="cookie-option">
-      <input type="checkbox" id="socialMedia" />
-      <label for="socialMedia">Social Media Cookies</label>
+    <div class="cookie-section">
+      <h2>Social Media Cookies</h2>
+      <p>These cookies connect with social media platforms for sharing content.</p>
+      <button type="button" class="collapsible">Learn More</button>
+      <div class="content">
+        <p>Social media cookies enable you to share content across social platforms like Facebook, Twitter, and more.</p>
+      </div>
+      <div class="checkbox">
+        <input type="checkbox" id="socialMedia">
+        <label for="socialMedia">Enable Social Media Cookies</label>
+      </div>
     </div>
 
-    <div class="cookie-option">
-      <input type="checkbox" id="targeting" />
-      <label for="targeting">Targeting Cookies</label>
+    <div class="cookie-section">
+      <h2>Targeting Cookies</h2>
+      <p>Used to deliver ads more relevant to you.</p>
+      <button type="button" class="collapsible">Learn More</button>
+      <div class="content">
+        <p>Targeting cookies allow us to deliver ads and promotions tailored to your interests, helping to personalize your browsing experience.</p>
+      </div>
+      <div class="checkbox">
+        <input type="checkbox" id="targeting">
+        <label for="targeting">Enable Targeting Cookies</label>
+      </div>
     </div>
 
-    <div class="cookie-option">
-      <input type="checkbox" id="analytics" />
-      <label for="analytics">Analytics Cookies</label>
+    <div class="cookie-section">
+      <h2>User Profile Cookies - Analytics</h2>
+      <p>Help us understand user behavior through anonymized data.</p>
+      <button type="button" class="collapsible">Learn More</button>
+      <div class="content">
+        <p>Analytics cookies allow us to analyze how users interact with the website to improve user experience and identify areas for improvement.</p>
+      </div>
+      <div class="checkbox">
+        <input type="checkbox" id="analytics">
+        <label for="analytics">Enable Analytics Cookies</label>
+      </div>
     </div>
 
     <div class="button-group">
       <button class="button reject" onclick="rejectAll()">Reject All</button>
       <button class="button confirm" onclick="confirmChoices()">Confirm My Choices</button>
     </div>
+
+    <p class="trust-message">We respect your privacy. You can change your preferences anytime.</p>
   </div>
 
   <script>
-    function setCookie(name, value, days) {
-      const date = new Date();
-      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-      document.cookie = `${name}=${value}; path=/; expires=${date.toUTCString()}`;
+    function rejectAll() {
+      alert("All cookies rejected.");
     }
 
     function confirmChoices() {
-      document.querySelectorAll('input[type="checkbox"]').forEach(box => {
-        setCookie(box.id, box.checked, 365);
-      });
-      alert('Your choices have been saved.');
+      alert("Your cookie preferences have been saved.");
     }
 
-    function rejectAll() {
-      ['performance', 'functional', 'socialMedia', 'targeting', 'analytics'].forEach(cookie => {
-        setCookie(cookie, 'false', 365);
+    var coll = document.getElementsByClassName("collapsible");
+    for (var i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
       });
-      alert('All optional cookies have been disabled.');
     }
   </script>
 </body>
