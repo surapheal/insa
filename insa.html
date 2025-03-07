@@ -55,9 +55,6 @@
     .link i {
       margin-right: 10px;
     }
-    .hidden {
-      display: none;
-    }
     .cookie-link {
       margin-top: 20px;
       font-size: 14px;
@@ -78,48 +75,24 @@
     <h1>@INSA</h1>
 
     <div class="links">
-      <a href="https://facebook.com/insa" class="link social-media">
+      <a href="https://facebook.com/insa" class="link">
         <i class="fab fa-facebook"></i> Facebook
       </a>
-      <a href="https://twitter.com/insa" class="link social-media">
+      <a href="https://twitter.com/insa" class="link">
         <i class="fab fa-twitter"></i> Twitter
       </a>
-      <a href="https://linkedin.com/company/nidp" class="link social-media">
+      <a href="https://linkedin.com/company/nidp" class="link">
         <i class="fab fa-linkedin"></i> LinkedIn
       </a>
-      <a href="https://t.me/insa" class="link social-media">
+      <a href="https://t.me/insa" class="link">
         <i class="fab fa-telegram"></i> Telegram
       </a>
-      <a href="https://tiktok.com/@insa" class="link social-media">
+      <a href="https://tiktok.com/@insa" class="link">
         <i class="fab fa-tiktok"></i> TikTok
       </a>
     </div>
 
     <p class="cookie-link" onclick="window.location.href='cookies.html'">Manage Cookie Preferences</p>
   </div>
-
-  <script>
-    // Function to get cookie by name
-    function getCookie(name) {
-      const cookies = document.cookie.split('; ');
-      for (let i = 0; i < cookies.length; i++) {
-        const [cookieName, cookieValue] = cookies[i].split('=');
-        if (cookieName === name) {
-          return cookieValue;
-        }
-      }
-      return null;
-    }
-
-    // Check cookie preferences
-    window.addEventListener('DOMContentLoaded', () => {
-      const socialMediaEnabled = getCookie('socialMediaCookies');
-      const socialMediaLinks = document.querySelectorAll('.social-media');
-
-      if (socialMediaEnabled !== 'true') {
-        socialMediaLinks.forEach(link => link.classList.add('hidden'));
-      }
-    });
-  </script>
 </body>
 </html>
