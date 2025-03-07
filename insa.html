@@ -55,15 +55,37 @@
     .link i {
       margin-right: 10px;
     }
-    .cookie-link {
-      margin-top: 20px;
-      font-size: 14px;
-      color: #007bff;
-      cursor: pointer;
-      text-decoration: underline;
+    .cookie-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      text-align: center;
     }
-    .cookie-link:hover {
-      color: #0056b3;
+    .cookie-banner button {
+      margin-left: 20px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .accept {
+      background-color: #28a745;
+      color: white;
+    }
+    .accept:hover {
+      background-color: #218838;
+    }
+    .manage {
+      background-color: #007bff;
+      color: white;
+    }
+    .manage:hover {
+      background-color: #0056b3;
     }
   </style>
 
@@ -91,8 +113,25 @@
         <i class="fab fa-tiktok"></i> TikTok
       </a>
     </div>
-
-    <p class="cookie-link" onclick="window.location.href='cookies.html'">Manage Cookie Preferences</p>
   </div>
+
+  <div class="cookie-banner" id="cookieBanner">
+    <p>We use cookies to enhance your experience. You can manage your preferences or accept all cookies.</p>
+    <button class="accept" onclick="acceptCookies()">Accept All</button>
+    <button class="manage" onclick="window.location.href='cookies.html'">Manage Preferences</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (document.cookie.includes('cookiesAccepted=true')) {
+        document.getElementById('cookieBanner').style.display = 'none';
+      }
+    });
+
+    function acceptCookies() {
+      document.cookie = "cookiesAccepted=true; path=/; max-age=31536000";
+      document.getElementById('cookieBanner').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
