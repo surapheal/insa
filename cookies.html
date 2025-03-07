@@ -119,7 +119,7 @@
         <p>Performance cookies help us to improve our website's functionality, allowing us to better understand how users interact with our content.</p>
       </div>
       <div class="checkbox">
-        <input type="checkbox" id="performance">
+        <input type="checkbox" id="performance" onclick="togglePerformanceCookies(this)">
         <label for="performance">Enable Performance Cookies</label>
       </div>
     </div>
@@ -132,7 +132,7 @@
         <p>Functional cookies enhance the user experience by remembering your preferences and settings, making your next visit smoother.</p>
       </div>
       <div class="checkbox">
-        <input type="checkbox" id="functional">
+        <input type="checkbox" id="functional" onclick="toggleFunctionalCookies(this)">
         <label for="functional">Enable Functional Cookies</label>
       </div>
     </div>
@@ -145,7 +145,7 @@
         <p>Social media cookies enable you to share content across social platforms like Facebook, Twitter, and more.</p>
       </div>
       <div class="checkbox">
-        <input type="checkbox" id="socialMedia">
+        <input type="checkbox" id="socialMedia" onclick="toggleSocialMediaCookies(this)">
         <label for="socialMedia">Enable Social Media Cookies</label>
       </div>
     </div>
@@ -158,7 +158,7 @@
         <p>Targeting cookies allow us to deliver ads and promotions tailored to your interests, helping to personalize your browsing experience.</p>
       </div>
       <div class="checkbox">
-        <input type="checkbox" id="targeting">
+        <input type="checkbox" id="targeting" onclick="toggleTargetingCookies(this)">
         <label for="targeting">Enable Targeting Cookies</label>
       </div>
     </div>
@@ -171,7 +171,7 @@
         <p>Analytics cookies allow us to analyze how users interact with the website to improve user experience and identify areas for improvement.</p>
       </div>
       <div class="checkbox">
-        <input type="checkbox" id="analytics">
+        <input type="checkbox" id="analytics" onclick="toggleAnalyticsCookies(this)">
         <label for="analytics">Enable Analytics Cookies</label>
       </div>
     </div>
@@ -187,10 +187,59 @@
   <script>
     function rejectAll() {
       alert("All cookies rejected.");
+      // Here you would add logic to reject cookies on the user's device.
     }
 
     function confirmChoices() {
       alert("Your cookie preferences have been saved.");
+      // You can handle cookie saving logic here, setting necessary cookies.
+    }
+
+    function togglePerformanceCookies(checkbox) {
+      if (checkbox.checked) {
+        console.log('Performance cookies enabled');
+        // Insert Google Analytics script or other performance tracking code here.
+      } else {
+        console.log('Performance cookies disabled');
+        // Disable Google Analytics tracking.
+      }
+    }
+
+    function toggleFunctionalCookies(checkbox) {
+      if (checkbox.checked) {
+        console.log('Functional cookies enabled');
+        // Store user preferences here, or implement necessary functionality.
+      } else {
+        console.log('Functional cookies disabled');
+        // Remove user preferences if needed.
+      }
+    }
+
+    function toggleSocialMediaCookies(checkbox) {
+      if (checkbox.checked) {
+        console.log('Social Media cookies enabled');
+        // Implement social media pixel or other tracking mechanisms.
+      } else {
+        console.log('Social Media cookies disabled');
+      }
+    }
+
+    function toggleTargetingCookies(checkbox) {
+      if (checkbox.checked) {
+        console.log('Targeting cookies enabled');
+        // Implement Google Ads or other targeting scripts.
+      } else {
+        console.log('Targeting cookies disabled');
+      }
+    }
+
+    function toggleAnalyticsCookies(checkbox) {
+      if (checkbox.checked) {
+        console.log('Analytics cookies enabled');
+        // Integrate with Google Analytics or other analytics platforms.
+      } else {
+        console.log('Analytics cookies disabled');
+      }
     }
 
     var coll = document.getElementsByClassName("collapsible");
