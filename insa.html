@@ -6,28 +6,21 @@
   <title>INSA Social Links</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
       background-color: #f8f9fa;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      padding: 20px;
+      height: 100vh;
+      margin: 0;
     }
     .container {
       text-align: center;
       background-color: #fff;
       padding: 30px;
       border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      max-width: 500px;
-      width: 100%;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
     .logo {
       width: 100px;
@@ -36,9 +29,8 @@
       margin-bottom: 20px;
     }
     h1 {
-      font-size: 28px;
+      font-size: 24px;
       margin-bottom: 20px;
-      color: #333;
     }
     .links {
       display: flex;
@@ -51,88 +43,27 @@
       justify-content: center;
       background-color: #007bff;
       color: #fff;
-      padding: 15px;
+      padding: 15px 20px;
       border-radius: 10px;
       text-decoration: none;
-      font-size: 18px;
-      transition: all 0.3s ease-in-out;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
     }
     .link:hover {
-      transform: scale(1.05);
       background-color: #0056b3;
     }
     .link i {
       margin-right: 10px;
     }
-    /* Cookie banner */
-    .cookie-banner {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background-color: #333;
-      color: white;
-      padding: 20px;
-      text-align: center;
+    .cookie-link {
+      margin-top: 20px;
       font-size: 14px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      z-index: 1000;
-    }
-    .cookie-banner p {
-      max-width: 90%;
-      line-height: 1.6;
-      font-size: 16px;
-    }
-    .cookie-banner-buttons {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .cookie-banner button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      font-size: 14px;
+      color: #007bff;
       cursor: pointer;
-      transition: 0.3s ease;
+      text-decoration: underline;
     }
-    .accept {
-      background-color: #28a745;
-      color: white;
-    }
-    .accept:hover {
-      background-color: #218838;
-    }
-    .manage {
-      background-color: #007bff;
-      color: white;
-    }
-    .manage:hover {
-      background-color: #0056b3;
-    }
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 22px;
-      }
-      .link {
-        font-size: 16px;
-        padding: 12px;
-      }
-      .cookie-banner {
-        padding: 15px;
-        font-size: 12px;
-      }
-      .cookie-banner p {
-        font-size: 14px;
-      }
-      .cookie-banner button {
-        padding: 8px 15px;
-        font-size: 12px;
-      }
+    .cookie-link:hover {
+      color: #0056b3;
     }
   </style>
 
@@ -160,28 +91,8 @@
         <i class="fab fa-tiktok"></i> TikTok
       </a>
     </div>
+
+    <p class="cookie-link" onclick="window.location.href='cookies.html'">Manage Cookie Preferences</p>
   </div>
-
-  <!-- Cookie Banner -->
-  <div class="cookie-banner" id="cookieBanner">
-    <p>We use cookies to enhance your experience. Manage your preferences or accept all cookies.</p>
-    <div class="cookie-banner-buttons">
-      <button class="accept" onclick="acceptCookies()">Accept All</button>
-      <button class="manage" onclick="window.location.href='cookies.html'">Manage Preferences</button>
-    </div>
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (document.cookie.includes('cookiesAccepted=true')) {
-        document.getElementById('cookieBanner').style.display = 'none';
-      }
-    });
-
-    function acceptCookies() {
-      document.cookie = "cookiesAccepted=true; path=/; max-age=31536000; Secure; SameSite=Lax";
-      document.getElementById('cookieBanner').style.display = 'none';
-    }
-  </script>
 </body>
 </html>
