@@ -114,45 +114,65 @@
     <div class="cookie-section">
       <h2>Performance Cookies</h2>
       <p>These cookies collect anonymous data on how you use our site to improve its performance.</p>
+      <button type="button" class="collapsible">Learn More</button>
+      <div class="content">
+        <p>Performance cookies help us to improve our website's functionality, allowing us to better understand how users interact with our content.</p>
+      </div>
       <div class="checkbox">
         <input type="checkbox" id="performance">
-        <label for="performance">Enable Performance Cookies (Google Analytics)</label>
+        <label for="performance">Enable Performance Cookies</label>
       </div>
     </div>
 
     <div class="cookie-section">
       <h2>Functional Cookies</h2>
       <p>Enable site functionalities like remembering your preferences.</p>
+      <button type="button" class="collapsible">Learn More</button>
+      <div class="content">
+        <p>Functional cookies enhance the user experience by remembering your preferences and settings, making your next visit smoother.</p>
+      </div>
       <div class="checkbox">
         <input type="checkbox" id="functional">
-        <label for="functional">Enable Functional Cookies (User Preferences)</label>
+        <label for="functional">Enable Functional Cookies</label>
       </div>
     </div>
 
     <div class="cookie-section">
       <h2>Social Media Cookies</h2>
       <p>These cookies connect with social media platforms for sharing content.</p>
+      <button type="button" class="collapsible">Learn More</button>
+      <div class="content">
+        <p>Social media cookies enable you to share content across social platforms like Facebook, Twitter, and more.</p>
+      </div>
       <div class="checkbox">
         <input type="checkbox" id="socialMedia">
-        <label for="socialMedia">Enable Social Media Cookies (Facebook Pixel)</label>
+        <label for="socialMedia">Enable Social Media Cookies</label>
       </div>
     </div>
 
     <div class="cookie-section">
       <h2>Targeting Cookies</h2>
       <p>Used to deliver ads more relevant to you.</p>
+      <button type="button" class="collapsible">Learn More</button>
+      <div class="content">
+        <p>Targeting cookies allow us to deliver ads and promotions tailored to your interests, helping to personalize your browsing experience.</p>
+      </div>
       <div class="checkbox">
         <input type="checkbox" id="targeting">
-        <label for="targeting">Enable Targeting Cookies (Google Ads)</label>
+        <label for="targeting">Enable Targeting Cookies</label>
       </div>
     </div>
 
     <div class="cookie-section">
       <h2>User Profile Cookies - Analytics</h2>
       <p>Help us understand user behavior through anonymized data.</p>
+      <button type="button" class="collapsible">Learn More</button>
+      <div class="content">
+        <p>Analytics cookies allow us to analyze how users interact with the website to improve user experience and identify areas for improvement.</p>
+      </div>
       <div class="checkbox">
         <input type="checkbox" id="analytics">
-        <label for="analytics">Enable Analytics Cookies (Google Analytics with User Data)</label>
+        <label for="analytics">Enable Analytics Cookies</label>
       </div>
     </div>
 
@@ -165,45 +185,26 @@
   </div>
 
   <script>
-    // Save cookie preferences
-    function setCookie(name, value, days) {
-      const date = new Date();
-      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-      document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/`;
-    }
-
-    function getCookie(name) {
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-        const [key, value] = cookies[i].trim().split('=');
-        if (key === name) return value;
-      }
-      return null;
-    }
-
     function rejectAll() {
-      const categories = ['performance', 'functional', 'socialMedia', 'targeting', 'analytics'];
-      categories.forEach(category => setCookie(category, 'false', 365));
       alert("All cookies rejected.");
     }
 
     function confirmChoices() {
-      const categories = ['performance', 'functional', 'socialMedia', 'targeting', 'analytics'];
-      categories.forEach(category => {
-        const isChecked = document.getElementById(category).checked;
-        setCookie(category, isChecked ? 'true' : 'false', 365);
-      });
       alert("Your cookie preferences have been saved.");
     }
 
-    // Initialize checkboxes based on stored cookies
-    window.onload = function() {
-      const categories = ['performance', 'functional', 'socialMedia', 'targeting', 'analytics'];
-      categories.forEach(category => {
-        const isEnabled = getCookie(category) === 'true';
-        document.getElementById(category).checked = isEnabled;
+    var coll = document.getElementsByClassName("collapsible");
+    for (var i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
       });
-    };
+    }
   </script>
 </body>
 </html>
