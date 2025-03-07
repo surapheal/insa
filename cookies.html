@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookie Preferences</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      max-width: 600px;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: left;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .cookie-section {
+      margin-bottom: 20px;
+    }
+    .cookie-section h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #007bff;
+    }
+    .cookie-section p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.6;
+    }
+    .checkbox {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .checkbox input {
+      cursor: pointer;
+    }
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .button {
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .reject {
+      background-color: #dc3545;
+      color: white;
+    }
+    .reject:hover {
+      background-color: #c82333;
+    }
+    .confirm {
+      background-color: #007bff;
+      color: white;
+    }
+    .confirm:hover {
+      background-color: #0056b3;
+    }
+    .trust-message {
+      font-size: 12px;
+      color: #777;
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Manage Your Cookie Preferences</h1>
+
+    <div class="cookie-section">
+      <h2>Performance Cookies</h2>
+      <p>These cookies collect anonymous data on how you use our site to improve its performance.</p>
+      <div class="checkbox">
+        <input type="checkbox" id="performance">
+        <label for="performance">Enable Performance Cookies</label>
+      </div>
+    </div>
+
+    <div class="cookie-section">
+      <h2>Functional Cookies</h2>
+      <p>Enable site functionalities like remembering your preferences.</p>
+      <div class="checkbox">
+        <input type="checkbox" id="functional">
+        <label for="functional">Enable Functional Cookies</label>
+      </div>
+    </div>
+
+    <div class="cookie-section">
+      <h2>Social Media Cookies</h2>
+      <p>These cookies connect with social media platforms for sharing content.</p>
+      <div class="checkbox">
+        <input type="checkbox" id="socialMedia">
+        <label for="socialMedia">Enable Social Media Cookies</label>
+      </div>
+    </div>
+
+    <div class="cookie-section">
+      <h2>Targeting Cookies</h2>
+      <p>Used to deliver ads more relevant to you.</p>
+      <div class="checkbox">
+        <input type="checkbox" id="targeting">
+        <label for="targeting">Enable Targeting Cookies</label>
+      </div>
+    </div>
+
+    <div class="cookie-section">
+      <h2>User Profile Cookies - Analytics</h2>
+      <p>Help us understand user behavior through anonymized data.</p>
+      <div class="checkbox">
+        <input type="checkbox" id="analytics">
+        <label for="analytics">Enable Analytics Cookies</label>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button class="button reject" onclick="rejectAll()">Reject All</button>
+      <button class="button confirm" onclick="confirmChoices()">Confirm My Choices</button>
+    </div>
+
+    <p class="trust-message">We respect your privacy. You can change your preferences anytime.</p>
+  </div>
+
+  <script>
+    function rejectAll() {
+      alert("All cookies rejected.");
+    }
+
+    function confirmChoices() {
+      alert("Your cookie preferences have been saved.");
+    }
+  </script>
+</body>
+</html>
