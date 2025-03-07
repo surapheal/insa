@@ -6,7 +6,105 @@
   <title>Cookie Preferences</title>
 
   <style>
-    /* Your existing styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      max-width: 600px;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: left;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .cookie-section {
+      margin-bottom: 20px;
+    }
+    .cookie-section h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #007bff;
+    }
+    .cookie-section p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.6;
+    }
+    .checkbox {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .checkbox input {
+      cursor: pointer;
+    }
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .button {
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .reject {
+      background-color: #dc3545;
+      color: white;
+    }
+    .reject:hover {
+      background-color: #c82333;
+    }
+    .confirm {
+      background-color: #007bff;
+      color: white;
+    }
+    .confirm:hover {
+      background-color: #0056b3;
+    }
+    .trust-message {
+      font-size: 12px;
+      color: #777;
+      margin-top: 20px;
+      text-align: center;
+    }
+    /* Collapsible styles */
+    .collapsible {
+      background-color: #f1f1f1;
+      color: #007bff;
+      cursor: pointer;
+      padding: 10px;
+      width: 100%;
+      text-align: left;
+      border: none;
+      outline: none;
+      font-size: 15px;
+    }
+    .active, .collapsible:hover {
+      background-color: #ccc;
+    }
+    .content {
+      padding: 0 18px;
+      display: none;
+      overflow: hidden;
+      background-color: #f9f9f9;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
@@ -87,70 +185,25 @@
   </div>
 
   <script>
-    // Save cookie preferences
     function rejectAll() {
-      setCookie('cookie_preferences', JSON.stringify({
-        performance: false,
-        functional: false,
-        socialMedia: false,
-        targeting: false,
-        analytics: false
-      }));
       alert("All cookies rejected.");
     }
 
     function confirmChoices() {
-      const cookiePreferences = {
-        performance: document.getElementById('performance').checked,
-        functional: document.getElementById('functional').checked,
-        socialMedia: document.getElementById('socialMedia').checked,
-        targeting: document.getElementById('targeting').checked,
-        analytics: document.getElementById('analytics').checked
-      };
-      setCookie('cookie_preferences', JSON.stringify(cookiePreferences));
       alert("Your cookie preferences have been saved.");
     }
 
-    // Set a cookie
-    function setCookie(name, value) {
-      const expires = new Date();
-      expires.setFullYear(expires.getFullYear() + 1); // Cookie expires in 1 year
-      document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires.toUTCString()}; path=/`;
-    }
-
-    // Handle collapsible sections
     var coll = document.getElementsByClassName("collapsible");
     for (var i = 0; i < coll.length; i++) {
       coll[i].addEventListener("click", function() {
         this.classList.toggle("active");
         var content = this.nextElementSibling;
-        content.style.display = (content.style.display === "block") ? "none" : "block";
-      });
-    }
-
-    // Load saved preferences (if any)
-    document.addEventListener('DOMContentLoaded', function() {
-      const cookiePreferences = getCookie('cookie_preferences');
-      if (cookiePreferences) {
-        const preferences = JSON.parse(cookiePreferences);
-        document.getElementById('performance').checked = preferences.performance;
-        document.getElementById('functional').checked = preferences.functional;
-        document.getElementById('socialMedia').checked = preferences.socialMedia;
-        document.getElementById('targeting').checked = preferences.targeting;
-        document.getElementById('analytics').checked = preferences.analytics;
-      }
-    });
-
-    // Get a cookie value
-    function getCookie(name) {
-      const cookieArr = document.cookie.split(';');
-      for (let i = 0; i < cookieArr.length; i++) {
-        const cookie = cookieArr[i].trim();
-        if (cookie.startsWith(name + '=')) {
-          return cookie.substring(name.length + 1);
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
         }
-      }
-      return '';
+      });
     }
   </script>
 </body>
