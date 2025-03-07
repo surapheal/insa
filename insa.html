@@ -8,17 +8,12 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
-      background-color: #f8f9fa;
-      transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
-    }
-    .dark-mode {
-      background-color: #1a1a1a;
-      color: #f1f1f1;
     }
     .container {
       text-align: center;
@@ -26,11 +21,6 @@
       padding: 30px;
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
-    }
-    .dark-mode .container {
-      background-color: #333;
-      color: #fff;
     }
     .logo {
       width: 100px;
@@ -57,60 +47,23 @@
       border-radius: 10px;
       text-decoration: none;
       font-size: 16px;
-      transition: transform 0.2s ease, background-color 0.3s ease;
+      transition: background-color 0.3s ease;
     }
     .link:hover {
       background-color: #0056b3;
-      transform: scale(1.05);
     }
     .link i {
       margin-right: 10px;
     }
-    .dark-mode-toggle {
+    .cookie-link {
       margin-top: 20px;
-      cursor: pointer;
-      background-color: #007bff;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
       font-size: 14px;
-      transition: background-color 0.3s ease;
-    }
-    .dark-mode-toggle:hover {
-      background-color: #0056b3;
-    }
-    .dark-mode .dark-mode-toggle {
-      background-color: #f1f1f1;
-      color: #1a1a1a;
-    }
-    .cookie-banner {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 15px 20px;
-      border-radius: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 80%;
-      max-width: 400px;
-      font-size: 14px;
-      display: none;
-    }
-    .cookie-banner button {
-      background-color: #28a745;
-      color: white;
-      border: none;
-      padding: 5px 10px;
+      color: #007bff;
       cursor: pointer;
-      border-radius: 5px;
+      text-decoration: underline;
     }
-    .cookie-banner button:hover {
-      background-color: #218838;
+    .cookie-link:hover {
+      color: #0056b3;
     }
   </style>
 
@@ -120,7 +73,7 @@
   <div class="container">
     <img src="./assets/INSA.png" alt="INSA Logo" class="logo">
     <h1>@INSA</h1>
-    
+
     <div class="links">
       <a href="https://facebook.com/insa" class="link">
         <i class="fab fa-facebook"></i> Facebook
@@ -139,65 +92,7 @@
       </a>
     </div>
 
-    <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
+    <p class="cookie-link" onclick="window.location.href='cookies.html'">Manage Cookie Preferences</p>
   </div>
-
-  <div class="cookie-banner" id="cookieBanner">
-    <span>We use cookies to improve your experience.</span>
-    <button onclick="acceptCookies()">Accept</button>
-  </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // Check and apply dark mode preference
-      if (getCookie("darkMode") === "enabled") {
-        document.body.classList.add("dark-mode");
-      }
-
-      // Show cookie banner if cookies are not accepted
-      if (!getCookie("cookiesAccepted")) {
-        document.getElementById("cookieBanner").style.display = "flex";
-      }
-    });
-
-    function toggleDarkMode() {
-      document.body.classList.toggle("dark-mode");
-
-      // Save preference in cookies
-      if (document.body.classList.contains("dark-mode")) {
-        setCookie("darkMode", "enabled", 365);
-      } else {
-        setCookie("darkMode", "disabled", 365);
-      }
-    }
-
-    function acceptCookies() {
-      setCookie("cookiesAccepted", "true", 365);
-      document.getElementById("cookieBanner").style.display = "none";
-    }
-
-    // Cookie helper functions
-    function setCookie(name, value, days) {
-      let expires = "";
-      if (days) {
-        let date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        expires = "; expires=" + date.toUTCString();
-      }
-      document.cookie = name + "=" + value + "; path=/" + expires;
-    }
-
-    function getCookie(name) {
-      let nameEQ = name + "=";
-      let cookiesArray = document.cookie.split(";");
-      for (let i = 0; i < cookiesArray.length; i++) {
-        let cookie = cookiesArray[i].trim();
-        if (cookie.indexOf(nameEQ) === 0) {
-          return cookie.substring(nameEQ.length, cookie.length);
-        }
-      }
-      return null;
-    }
-  </script>
 </body>
 </html>
