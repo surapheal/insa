@@ -17,7 +17,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       padding: 20px;
     }
     .container {
@@ -75,18 +75,24 @@
       padding: 20px;
       text-align: center;
       font-size: 14px;
-      animation: slide-up 0.5s ease-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      z-index: 1000;
     }
-    @keyframes slide-up {
-      from {
-        transform: translateY(100%);
-      }
-      to {
-        transform: translateY(0);
-      }
+    .cookie-banner p {
+      max-width: 90%;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    .cookie-banner-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
     .cookie-banner button {
-      margin: 10px;
       padding: 10px 20px;
       border: none;
       border-radius: 8px;
@@ -117,8 +123,15 @@
         padding: 12px;
       }
       .cookie-banner {
-        font-size: 12px;
         padding: 15px;
+        font-size: 12px;
+      }
+      .cookie-banner p {
+        font-size: 14px;
+      }
+      .cookie-banner button {
+        padding: 8px 15px;
+        font-size: 12px;
       }
     }
   </style>
@@ -149,10 +162,13 @@
     </div>
   </div>
 
+  <!-- Cookie Banner -->
   <div class="cookie-banner" id="cookieBanner">
     <p>We use cookies to enhance your experience. Manage your preferences or accept all cookies.</p>
-    <button class="accept" onclick="acceptCookies()">Accept All</button>
-    <button class="manage" onclick="window.location.href='cookies.html'">Manage Preferences</button>
+    <div class="cookie-banner-buttons">
+      <button class="accept" onclick="acceptCookies()">Accept All</button>
+      <button class="manage" onclick="window.location.href='cookies.html'">Manage Preferences</button>
+    </div>
   </div>
 
   <script>
