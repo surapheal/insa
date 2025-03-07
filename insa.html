@@ -6,21 +6,28 @@
   <title>INSA Social Links</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       background-color: #f8f9fa;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
+      padding: 20px;
     }
     .container {
       text-align: center;
       background-color: #fff;
       padding: 30px;
       border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
     }
     .logo {
       width: 100px;
@@ -29,8 +36,9 @@
       margin-bottom: 20px;
     }
     h1 {
-      font-size: 24px;
+      font-size: 28px;
       margin-bottom: 20px;
+      color: #333;
     }
     .links {
       display: flex;
@@ -43,18 +51,20 @@
       justify-content: center;
       background-color: #007bff;
       color: #fff;
-      padding: 15px 20px;
+      padding: 15px;
       border-radius: 10px;
       text-decoration: none;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
+      font-size: 18px;
+      transition: all 0.3s ease-in-out;
     }
     .link:hover {
+      transform: scale(1.05);
       background-color: #0056b3;
     }
     .link i {
       margin-right: 10px;
     }
+    /* Cookie banner */
     .cookie-banner {
       position: fixed;
       bottom: 0;
@@ -64,14 +74,25 @@
       color: white;
       padding: 20px;
       text-align: center;
+      font-size: 14px;
+      animation: slide-up 0.5s ease-out;
+    }
+    @keyframes slide-up {
+      from {
+        transform: translateY(100%);
+      }
+      to {
+        transform: translateY(0);
+      }
     }
     .cookie-banner button {
-      margin-left: 20px;
+      margin: 10px;
       padding: 10px 20px;
       border: none;
-      border-radius: 5px;
-      cursor: pointer;
+      border-radius: 8px;
       font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s ease;
     }
     .accept {
       background-color: #28a745;
@@ -86,6 +107,19 @@
     }
     .manage:hover {
       background-color: #0056b3;
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 22px;
+      }
+      .link {
+        font-size: 16px;
+        padding: 12px;
+      }
+      .cookie-banner {
+        font-size: 12px;
+        padding: 15px;
+      }
     }
   </style>
 
@@ -116,7 +150,7 @@
   </div>
 
   <div class="cookie-banner" id="cookieBanner">
-    <p>We use cookies to enhance your experience. You can manage your preferences or accept all cookies.</p>
+    <p>We use cookies to enhance your experience. Manage your preferences or accept all cookies.</p>
     <button class="accept" onclick="acceptCookies()">Accept All</button>
     <button class="manage" onclick="window.location.href='cookies.html'">Manage Preferences</button>
   </div>
@@ -129,7 +163,7 @@
     });
 
     function acceptCookies() {
-      document.cookie = "cookiesAccepted=true; path=/; max-age=31536000";
+      document.cookie = "cookiesAccepted=true; path=/; max-age=31536000; Secure; SameSite=Lax";
       document.getElementById('cookieBanner').style.display = 'none';
     }
   </script>
