@@ -27,36 +27,45 @@
       font-size: 28px;
       margin-bottom: 20px;
       color: #333;
+      text-align: center;
     }
     .cookie-section {
       margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ddd;
     }
     .cookie-section h2 {
       font-size: 20px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       color: #007bff;
     }
     .cookie-section p {
       font-size: 14px;
       color: #555;
       line-height: 1.6;
+      margin-bottom: 12px;
     }
     .checkbox {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
+      gap: 12px;
     }
     .checkbox input {
       cursor: pointer;
+      width: 18px;
+      height: 18px;
+    }
+    .checkbox label {
+      font-size: 16px;
+      color: #333;
     }
     .button-group {
       display: flex;
       justify-content: space-between;
-      margin-top: 20px;
+      margin-top: 30px;
     }
     .button {
-      padding: 12px 20px;
+      padding: 12px 25px;
       font-size: 16px;
       border: none;
       border-radius: 8px;
@@ -143,7 +152,6 @@
   </div>
 
   <script>
-    // Function to set cookies based on preferences
     function setCookie(name, value, days) {
       var expires = "";
       if (days) {
@@ -154,13 +162,11 @@
       document.cookie = name + "=" + (value || "") + expires + "; path=/";
     }
 
-    // Function to delete cookies
     function deleteCookie(name) {
       document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
     }
 
     function rejectAll() {
-      // Reject all cookies by deleting them
       deleteCookie("performance");
       deleteCookie("functional");
       deleteCookie("socialMedia");
@@ -170,7 +176,6 @@
     }
 
     function confirmChoices() {
-      // Save preferences based on checkbox states
       setCookie("performance", document.getElementById("performance").checked, 365);
       setCookie("functional", document.getElementById("functional").checked, 365);
       setCookie("socialMedia", document.getElementById("socialMedia").checked, 365);
