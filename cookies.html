@@ -6,91 +6,153 @@
   <title>Cookie Preferences</title>
 
   <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f8f9fa;
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f7fb;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
+      padding: 20px;
+      background-image: url('https://www.example.com/cyber-pattern.png'); /* Add your image URL here */
+      background-repeat: no-repeat;
+      background-position: left center, right center; /* Position images on both sides */
+      background-size: 100px 100px; /* Control size */
+      background-attachment: fixed;
     }
+
     .container {
       max-width: 600px;
+      width: 100%;
       background-color: #fff;
-      padding: 30px;
+      padding: 40px;
       border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
       text-align: left;
+      margin: 0 auto;
     }
+
     h1 {
-      font-size: 28px;
+      font-size: 32px;
       margin-bottom: 20px;
       color: #333;
       text-align: center;
+      line-height: 1.3;
     }
+
     .cookie-section {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       padding-bottom: 10px;
       border-bottom: 1px solid #ddd;
     }
+
     .cookie-section h2 {
-      font-size: 20px;
-      margin-bottom: 8px;
+      font-size: 22px;
+      margin-bottom: 10px;
       color: #007bff;
+      font-weight: 600;
     }
+
     .cookie-section p {
-      font-size: 14px;
+      font-size: 16px;
       color: #555;
-      line-height: 1.6;
+      line-height: 1.8;
       margin-bottom: 12px;
     }
+
     .checkbox {
       display: flex;
       align-items: center;
       gap: 12px;
     }
+
     .checkbox input {
       cursor: pointer;
       width: 18px;
       height: 18px;
     }
+
     .checkbox label {
       font-size: 16px;
       color: #333;
+      font-weight: 500;
     }
+
     .button-group {
       display: flex;
       justify-content: space-between;
       margin-top: 30px;
     }
+
     .button {
-      padding: 12px 25px;
-      font-size: 16px;
+      padding: 15px 25px;
+      font-size: 18px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
+
     .reject {
       background-color: #dc3545;
       color: white;
     }
+
     .reject:hover {
       background-color: #c82333;
+      transform: scale(1.05);
     }
+
     .confirm {
       background-color: #007bff;
       color: white;
     }
+
     .confirm:hover {
       background-color: #0056b3;
+      transform: scale(1.05);
     }
+
     .trust-message {
-      font-size: 12px;
+      font-size: 14px;
       color: #777;
-      margin-top: 20px;
+      margin-top: 25px;
       text-align: center;
+      line-height: 1.5;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .cookie-section h2 {
+        font-size: 20px;
+      }
+
+      .button-group {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .button {
+        width: 100%;
+        padding: 14px;
+        font-size: 16px;
+      }
     }
   </style>
 </head>
