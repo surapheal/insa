@@ -92,12 +92,6 @@
       margin-top: 20px;
       text-align: center;
     }
-    .status-summary {
-      margin-top: 20px;
-      font-size: 16px;
-      color: #333;
-      font-weight: bold;
-    }
   </style>
 </head>
 <body>
@@ -108,7 +102,7 @@
       <h2>Performance Cookies</h2>
       <p>These cookies collect anonymous data on how you use our site to improve its performance.</p>
       <div class="checkbox">
-        <input type="checkbox" id="performance" onchange="updateStatus()">
+        <input type="checkbox" id="performance">
         <label for="performance">Enable Performance Cookies</label>
       </div>
     </div>
@@ -117,7 +111,7 @@
       <h2>Functional Cookies</h2>
       <p>Enable site functionalities like remembering your preferences.</p>
       <div class="checkbox">
-        <input type="checkbox" id="functional" onchange="updateStatus()">
+        <input type="checkbox" id="functional">
         <label for="functional">Enable Functional Cookies</label>
       </div>
     </div>
@@ -126,7 +120,7 @@
       <h2>Social Media Cookies</h2>
       <p>These cookies connect with social media platforms for sharing content.</p>
       <div class="checkbox">
-        <input type="checkbox" id="socialMedia" onchange="updateStatus()">
+        <input type="checkbox" id="socialMedia">
         <label for="socialMedia">Enable Social Media Cookies</label>
       </div>
     </div>
@@ -135,7 +129,7 @@
       <h2>Targeting Cookies</h2>
       <p>Used to deliver ads more relevant to you.</p>
       <div class="checkbox">
-        <input type="checkbox" id="targeting" onchange="updateStatus()">
+        <input type="checkbox" id="targeting">
         <label for="targeting">Enable Targeting Cookies</label>
       </div>
     </div>
@@ -144,7 +138,7 @@
       <h2>User Profile Cookies - Analytics</h2>
       <p>Help us understand user behavior through anonymized data.</p>
       <div class="checkbox">
-        <input type="checkbox" id="analytics" onchange="updateStatus()">
+        <input type="checkbox" id="analytics">
         <label for="analytics">Enable Analytics Cookies</label>
       </div>
     </div>
@@ -155,9 +149,6 @@
     </div>
 
     <p class="trust-message">We respect your privacy. You can change your preferences anytime.</p>
-
-    <!-- Live status summary -->
-    <div class="status-summary" id="statusSummary">Cookie preferences are not yet confirmed.</div>
   </div>
 
   <script>
@@ -182,7 +173,6 @@
       deleteCookie("targeting");
       deleteCookie("analytics");
       alert("All cookies rejected.");
-      updateStatus();
     }
 
     function confirmChoices() {
@@ -192,18 +182,6 @@
       setCookie("targeting", document.getElementById("targeting").checked, 365);
       setCookie("analytics", document.getElementById("analytics").checked, 365);
       alert("Your cookie preferences have been saved.");
-      updateStatus();
-    }
-
-    function updateStatus() {
-      let statusText = "Cookie preferences are not yet confirmed.";
-      if (document.getElementById("performance").checked) statusText = "Performance cookies: Enabled";
-      if (document.getElementById("functional").checked) statusText += ", Functional cookies: Enabled";
-      if (document.getElementById("socialMedia").checked) statusText += ", Social Media cookies: Enabled";
-      if (document.getElementById("targeting").checked) statusText += ", Targeting cookies: Enabled";
-      if (document.getElementById("analytics").checked) statusText += ", Analytics cookies: Enabled";
-      
-      document.getElementById("statusSummary").innerText = statusText;
     }
   </script>
 </body>
