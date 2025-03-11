@@ -83,28 +83,6 @@
       margin-top: 20px;
       text-align: center;
     }
-    /* Collapsible styles */
-    .collapsible {
-      background-color: #f1f1f1;
-      color: #007bff;
-      cursor: pointer;
-      padding: 10px;
-      width: 100%;
-      text-align: left;
-      border: none;
-      outline: none;
-      font-size: 15px;
-    }
-    .active, .collapsible:hover {
-      background-color: #ccc;
-    }
-    .content {
-      padding: 0 18px;
-      display: none;
-      overflow: hidden;
-      background-color: #f9f9f9;
-      margin-bottom: 10px;
-    }
   </style>
 </head>
 <body>
@@ -114,10 +92,6 @@
     <div class="cookie-section">
       <h2>Performance Cookies</h2>
       <p>These cookies collect anonymous data on how you use our site to improve its performance.</p>
-      <button type="button" class="collapsible">Learn More</button>
-      <div class="content">
-        <p>Performance cookies help us to improve our website's functionality, allowing us to better understand how users interact with our content.</p>
-      </div>
       <div class="checkbox">
         <input type="checkbox" id="performance">
         <label for="performance">Enable Performance Cookies</label>
@@ -127,10 +101,6 @@
     <div class="cookie-section">
       <h2>Functional Cookies</h2>
       <p>Enable site functionalities like remembering your preferences.</p>
-      <button type="button" class="collapsible">Learn More</button>
-      <div class="content">
-        <p>Functional cookies enhance the user experience by remembering your preferences and settings, making your next visit smoother.</p>
-      </div>
       <div class="checkbox">
         <input type="checkbox" id="functional">
         <label for="functional">Enable Functional Cookies</label>
@@ -140,10 +110,6 @@
     <div class="cookie-section">
       <h2>Social Media Cookies</h2>
       <p>These cookies connect with social media platforms for sharing content.</p>
-      <button type="button" class="collapsible">Learn More</button>
-      <div class="content">
-        <p>Social media cookies enable you to share content across social platforms like Facebook, Twitter, and more.</p>
-      </div>
       <div class="checkbox">
         <input type="checkbox" id="socialMedia">
         <label for="socialMedia">Enable Social Media Cookies</label>
@@ -153,10 +119,6 @@
     <div class="cookie-section">
       <h2>Targeting Cookies</h2>
       <p>Used to deliver ads more relevant to you.</p>
-      <button type="button" class="collapsible">Learn More</button>
-      <div class="content">
-        <p>Targeting cookies allow us to deliver ads and promotions tailored to your interests, helping to personalize your browsing experience.</p>
-      </div>
       <div class="checkbox">
         <input type="checkbox" id="targeting">
         <label for="targeting">Enable Targeting Cookies</label>
@@ -166,10 +128,6 @@
     <div class="cookie-section">
       <h2>User Profile Cookies - Analytics</h2>
       <p>Help us understand user behavior through anonymized data.</p>
-      <button type="button" class="collapsible">Learn More</button>
-      <div class="content">
-        <p>Analytics cookies allow us to analyze how users interact with the website to improve user experience and identify areas for improvement.</p>
-      </div>
       <div class="checkbox">
         <input type="checkbox" id="analytics">
         <label for="analytics">Enable Analytics Cookies</label>
@@ -185,25 +143,40 @@
   </div>
 
   <script>
+    // Function to set cookies based on preferences
+    function setCookie(name, value, days) {
+      var expires = "";
+      if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    // Function to delete cookies
+    function deleteCookie(name) {
+      document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+    }
+
     function rejectAll() {
+      // Reject all cookies by deleting them
+      deleteCookie("performance");
+      deleteCookie("functional");
+      deleteCookie("socialMedia");
+      deleteCookie("targeting");
+      deleteCookie("analytics");
       alert("All cookies rejected.");
     }
 
     function confirmChoices() {
+      // Save preferences based on checkbox states
+      setCookie("performance", document.getElementById("performance").checked, 365);
+      setCookie("functional", document.getElementById("functional").checked, 365);
+      setCookie("socialMedia", document.getElementById("socialMedia").checked, 365);
+      setCookie("targeting", document.getElementById("targeting").checked, 365);
+      setCookie("analytics", document.getElementById("analytics").checked, 365);
       alert("Your cookie preferences have been saved.");
-    }
-
-    var coll = document.getElementsByClassName("collapsible");
-    for (var i = 0; i < coll.length; i++) {
-      coll[i].addEventListener("click", function() {
-        this.classList.toggle("active");
-        var content = this.nextElementSibling;
-        if (content.style.display === "block") {
-          content.style.display = "none";
-        } else {
-          content.style.display = "block";
-        }
-      });
     }
   </script>
 </body>
